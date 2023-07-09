@@ -19,34 +19,25 @@
 -- Table structure for table `user`
 --
 DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `id` int(11) DEFAULT NULL,
+  `user_id` int(11),
   `username` varchar(100) DEFAULT NULL,
   `userType` varchar(100) DEFAULT NULL,
   `active` char(1) DEFAULT NULL,
-  `loginTries` int(11) DEFAULT NULL
+  `loginTries` int(11) DEFAULT NULL,
+   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES (1,'user1','noAdmin','Y',0),(2,'user2','noAdmin','Y',0),(3,'user3','noAdmin','Y',0),(4,'user4','noAdmin','Y',0),(5,'user5','noAdmin','Y',0);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+CREATE TABLE `modules` (
+  `id` int(11),
+  `name` varchar(100) DEFAULT NULL,
+  `user_modules_id` int,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_modules_id`) REFERENCES user(`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dump completed on 2023-07-08 19:40:13
+
+
+
+INSERT INTO `modules` VALUES (1,'m1',1),(2,'m2',3),(3,'m3',2);

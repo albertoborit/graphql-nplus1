@@ -9,11 +9,40 @@ const knex = require("knex")( {
   }
 })
 
+// function hydrate(users) {
+//   let hidrated = []
+//   users.forEach(e => {
+//     if(!hidrated.includes(e.user_id)){
+//       hidrated.push(
+//         {
+//           "user_id":e.user_id,
+//           modules : {
+//             "id":e.id,
+//             "name":e.name
+//           }
+//         }
+//       )
+//     }
+//   });
+//   return [{ user_id: 1, modules: { id: 1, name: 'm1' } }]
+// }
+
+
+function hydrate(books) {
+  return books.map(x => ({
+    ...x,
+    user_module: {
+      user_id: x.user_id,
+      username: x.username,
+      userType: x.userType
+    }
+  }));
+}
 const resolvers = {
     Query: {
-        users: async () => {
-          return await knex("user")
-          .select("*")
+        modules: async () => {
+          const data =  hydrate(await knex.select('*').from('modules').leftJoin('user','user.user_id', '=', 'modules.user_modules_id'))
+          return data
         },
       },
   };

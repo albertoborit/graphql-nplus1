@@ -2,15 +2,21 @@ const gql = require('graphql-tag');
 
 const typeDefs = gql`
     type Query {
-        users: [User]
+        modules: [Modules]
     }
 
     type User {
-        id: ID!
+        user_id: ID!
         username: String!
         userType: String
         active: String
         loginTries: Int
+    }
+
+    type Modules {
+        id: ID!
+        name: String
+        user_module: User
     }
 `
 
