@@ -1,0 +1,9 @@
+query ExampleQuery {
+  users {
+    id
+    username
+    loginTries
+    userType
+    active
+  }
+}
