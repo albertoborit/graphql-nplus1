@@ -29,10 +29,6 @@ const knex = require("knex")( {
 
 
 function hydrate(data) {
-  // return res = books.map((item) => {
-  //   const related = books.find((el) => el.user_id == item.user_modules_id);
-  //   return { ...item,  related };
-  // });
   let auxArr = []
   let arr = []
   data.forEach(obj => {
@@ -44,7 +40,6 @@ function hydrate(data) {
         userType: e.userType
       }
     })
-    console.log(appender)
     if(!auxArr.includes(obj.user_modules_id)){
       arr.push({
         id: obj.user_modules_id,
@@ -54,7 +49,6 @@ function hydrate(data) {
     }
     auxArr.push(obj.user_modules_id)
   })
-  console.log(arr)
   return arr
 }
 const resolvers = {
