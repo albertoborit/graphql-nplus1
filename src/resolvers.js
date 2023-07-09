@@ -28,20 +28,39 @@ const knex = require("knex")( {
 // }
 
 
-function hydrate(books) {
-  return books.map(x => ({
-    ...x,
-    user_module: {
-      user_id: x.user_id,
-      username: x.username,
-      userType: x.userType
+function hydrate(data) {
+  // return res = books.map((item) => {
+  //   const related = books.find((el) => el.user_id == item.user_modules_id);
+  //   return { ...item,  related };
+  // });
+  let auxArr = []
+  let arr = []
+  data.forEach(obj => {
+    let appender = data.filter(objx=>objx.user_id === obj.user_modules_id)
+    appender = appender.map(e=>{
+      return {
+        user_id:e.user_id,
+        username:e.username,
+        userType: e.userType
+      }
+    })
+    console.log(appender)
+    if(!auxArr.includes(obj.user_modules_id)){
+      arr.push({
+        id: obj.user_modules_id,
+        name: obj.name,
+        user_module:appender
+      })
     }
-  }));
+    auxArr.push(obj.user_modules_id)
+  })
+  console.log(arr)
+  return arr
 }
 const resolvers = {
     Query: {
         modules: async () => {
-          const data =  hydrate(await knex.select('*').from('modules').leftJoin('user','user.user_id', '=', 'modules.user_modules_id'))
+          const data =  hydrate(await knex.select('*').from('modules').innerJoin('user','user.user_id', '=', 'modules.user_modules_id'))
           return data
         },
       },

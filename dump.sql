@@ -40,4 +40,4 @@ CREATE TABLE `modules` (
 
 
 
-INSERT INTO `modules` VALUES (1,'m1',1),(2,'m2',3),(3,'m3',2);
+INSERT INTO `modules` VALUES (1,'m1',1),(2,'m2',1),(3,'m3',2);

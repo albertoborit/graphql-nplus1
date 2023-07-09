@@ -16,7 +16,7 @@ const typeDefs = gql`
     type Modules {
         id: ID!
         name: String
-        user_module: User
+        user_module: [User]
     }
 `
 
